@@ -1,0 +1,35 @@
+@(message: String)
+<html>
+<head>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#submitButton").click(function(){
+            $.ajax({
+                url:"./json",
+                data:{source:$("#editArea").children("textarea").val()}
+            }).done(function(response){
+                $("#previewArea").children("textarea").val(response);
+
+            }).fail(function(data){
+                console.log("failed to get result");
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+<h1>live-ftl-viewer</h1>
+    <input type="button" id="submitButton" value="テスト">
+    <div id="main">
+        <div id="editArea">
+            <textarea></textarea>
+        </div>
+        <div id="previewArea">
+            <textarea readonly="true"></textarea>
+        </div>
+    </div>
+</body>
+</html>
